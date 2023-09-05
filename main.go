@@ -9,11 +9,10 @@ import (
 )
 
 func main() {
-
-	url := "https://www.cls.cn/nodeapi/telegraphList"
+	url := "https://www.cls.cn/nodeapi/refreshTelegraphList"
 
 	req, _ := http.NewRequest("GET", url, nil)
-	addQuery(req, 1)
+	addQuery(req, 10)
 	addHeader(req)
 
 	res, err := http.DefaultClient.Do(req)
@@ -31,7 +30,7 @@ func main() {
 func addQuery(req *http.Request, cnt int) {
 	query := req.URL.Query()
 	query.Add("app", "CailianpressWeb")
-	query.Add("lastTime", fmt.Sprintf("%d", time.Now().Truncate(time.Hour).Unix()))
+	query.Add("lastTime", fmt.Sprintf("%d", time.Now().Truncate(time.Minute*5).Unix()))
 	query.Add("os", "web")
 	query.Add("sv", "7.7.5")
 	query.Add("rn", fmt.Sprintf("%d", cnt))
