@@ -127,6 +127,9 @@ func (core *Core) selectTelegraph(telegraphList []*api.Telegraph) (*api.Telegrap
 	}
 
 	if idx == len(telegraphList) {
+		if len(telegraphList) == 0 {
+			return nil, time.Now().Unix(), false, nil
+		}
 		return nil, telegraphList[len(telegraphList)-1].CTime - 1, false, nil
 	}
 
