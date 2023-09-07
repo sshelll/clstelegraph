@@ -4,7 +4,7 @@ go 1.21.0
 
 require (
 	github.com/gdamore/tcell/v2 v2.6.0
-	github.com/sshelll/menuscreen v1.2.1
+	github.com/sshelll/menuscreen v1.2.2
 	github.com/sshelll/sinfra v0.0.0-20230906160500-ea73c33d29d0
 )
 
