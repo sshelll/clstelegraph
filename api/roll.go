@@ -5,15 +5,14 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"time"
 )
 
-func RefreshTelegraphList() (*RefreshTelegraphListResponse, error) {
-	url := "https://www.cls.cn/nodeapi/refreshTelegraphList"
+func RollTelegraphList(lastTime int64, cnt int) (*RollTelegraphListResponse, error) {
+	url := "https://www.cls.cn/nodeapi/telegraphList"
 
 	req, _ := http.NewRequest("GET", url, nil)
-	addQueryForRefreshTelegramList(req)
-	addHeaderForRefreshTelegramList(req)
+	addQueryForRollTelegramList(req, lastTime, cnt)
+	addHeaderForRollTelegramList(req)
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -23,21 +22,22 @@ func RefreshTelegraphList() (*RefreshTelegraphListResponse, error) {
 	defer res.Body.Close()
 	body, _ := io.ReadAll(res.Body)
 
-	resp := &RefreshTelegraphListResponse{}
+	resp := &RollTelegraphListResponse{}
 	err = json.Unmarshal(body, resp)
 	return resp, err
 }
 
-func addQueryForRefreshTelegramList(req *http.Request) {
+func addQueryForRollTelegramList(req *http.Request, lastTime int64, cnt int) {
 	query := req.URL.Query()
+	query.Add("lastTime", fmt.Sprintf("%d", lastTime))
+	query.Add("rn", fmt.Sprintf("%d", cnt))
 	query.Add("app", "CailianpressWeb")
-	query.Add("lastTime", fmt.Sprintf("%d", time.Now().Truncate(time.Minute).Unix()))
 	query.Add("os", "web")
 	query.Add("sv", "7.7.5")
 	req.URL.RawQuery = query.Encode()
 }
 
-func addHeaderForRefreshTelegramList(req *http.Request) {
+func addHeaderForRollTelegramList(req *http.Request) {
 	req.Header.Add("Accept", "application/json, text/plain, */*")
 	req.Header.Add("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8")
 	req.Header.Add("DNT", "1")
