@@ -108,36 +108,47 @@ func (core *Core) selectTelegraph(telegraphList []*api.Telegraph) (*api.Telegrap
 	defer menu.Fini()
 
 	menu.SetTitle("财联社电报")
-	for _, t := range telegraphList {
-		item := fmt.Sprintf("%s ", time.Unix(t.CTime, 0).Format("2006-01-02 15:04:05"))
-		if t.Title != "" {
-			item += t.Title
+	for i := range telegraphList {
+		tg := telegraphList[i]
+		item := fmt.Sprintf("%s ", time.Unix(tg.CTime, 0).Format("2006-01-02 15:04:05"))
+		if tg.Title != "" {
+			item += tg.Title
 		} else {
-			item += t.Brief
+			item += tg.Brief
 		}
-		menu.AppendLines(item)
+		menu.AppendItems(&menuscreen.MenuItem{
+			Content: item,
+			Item:    tg,
+		})
 	}
-	menu.AppendLines("➡ More...")
-	menu.AppendLines("➡ Reset")
+
+	isMore := true
+	isReset := true
+	isMoreItem := &isMore
+	isResetItem := &isReset
+	menu.AppendItems(
+		&menuscreen.MenuItem{Content: "➡ More...", Item: isMoreItem},
+		&menuscreen.MenuItem{Content: "➡ Reset..", Item: isResetItem},
+	)
 	menu.Start()
 
-	idx, _, ok := menu.ChosenLine()
+	_, item, ok := menu.ChosenItem()
 	if !ok {
 		return nil, -1, false, nil
 	}
 
-	if idx == len(telegraphList) {
+	if item.Item == isMoreItem {
 		if len(telegraphList) == 0 {
 			return nil, time.Now().Unix(), false, nil
 		}
 		return nil, telegraphList[len(telegraphList)-1].CTime - 1, false, nil
 	}
 
-	if idx == len(telegraphList)+1 {
+	if item.Item == isResetItem {
 		return nil, -1, true, nil
 	}
 
-	return telegraphList[idx], -1, false, nil
+	return item.Item.(*api.Telegraph), -1, false, nil
 }
 
 func (core *Core) displayTelegraph(telegraph *api.Telegraph) error {
