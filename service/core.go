@@ -12,7 +12,17 @@ import (
 	"github.com/sshelll/sinfra/tview/txtview"
 )
 
-type Core struct{}
+type Core struct {
+	limit    int
+	interval time.Duration
+}
+
+func NewCore(limit, interval int) *Core {
+	return &Core{
+		limit:    limit,
+		interval: time.Duration(interval) * time.Millisecond,
+	}
+}
 
 func (core *Core) Start() error {
 reset:
@@ -75,7 +85,7 @@ func (core *Core) fetch() ([]*api.Telegraph, error) {
 }
 
 func (core *Core) fetchMore(lastTime int64) ([]*api.Telegraph, error) {
-	rollResp, err := api.RollTelegraphList(lastTime, 10)
+	rollResp, err := api.RollTelegraphList(lastTime, core.limit)
 	if err != nil {
 		return nil, err
 	}
@@ -188,7 +198,7 @@ func (core *Core) displayTelegraph(telegraph *api.Telegraph) error {
 		fmt.Fprintf(txtViewer, "[red]Content:[white]\n")
 		for _, c := range telegraph.Content {
 			fmt.Fprintf(txtViewer, "%s", string(c))
-			time.Sleep(30 * time.Millisecond)
+			time.Sleep(core.interval)
 		}
 	}()
 	return txtViewer.Run()
