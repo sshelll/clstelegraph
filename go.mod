@@ -4,8 +4,8 @@ go 1.21.0
 
 require (
 	github.com/gdamore/tcell/v2 v2.6.0
-	github.com/sshelll/menuscreen v1.2.3
-	github.com/sshelll/sinfra v0.0.0-20230906160500-ea73c33d29d0
+	github.com/sshelll/menuscreen v1.2.4
+	github.com/sshelll/sinfra v0.0.0-20230907071256-fcdeaae6f055
 )
 
 require (
@@ -16,7 +16,7 @@ require (
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
-	github.com/rivo/tview v0.0.0-20230826224341-9754ab44dc1c // indirect
+	github.com/rivo/tview v0.0.0-20230907055643-aef151e35335 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/sshelll/fzflib v1.0.5 // indirect
 	golang.org/x/sys v0.12.0 // indirect

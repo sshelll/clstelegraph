@@ -21,6 +21,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rivo/tview v0.0.0-20230826224341-9754ab44dc1c h1:cuvKygt6v1OTsZSAXW2sc9tI6x0YEnxVct3DMv/0Ii4=
 github.com/rivo/tview v0.0.0-20230826224341-9754ab44dc1c/go.mod h1:nVwGv4MP47T0jvlk7KuTTjjuSmrGO4JF0iaiNt4bufE=
+github.com/rivo/tview v0.0.0-20230907055643-aef151e35335 h1:PX95kNI89X5bRnCE/mwMQIHM9yQkX05nuUjcdjUX+w8=
+github.com/rivo/tview v0.0.0-20230907055643-aef151e35335/go.mod h1:nVwGv4MP47T0jvlk7KuTTjjuSmrGO4JF0iaiNt4bufE=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.3/go.mod h1:FN3SvrM+Zdj16jyLfmOkMNblXMcoc8DfTHruCPUcx88=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=
@@ -35,8 +37,12 @@ github.com/sshelll/menuscreen v1.2.2 h1:3voDJ32zADW3L0R2WhiJQV5I5Ompa8gM+j6XHrEw
 github.com/sshelll/menuscreen v1.2.2/go.mod h1:q8E7r4/2nhXxt0n+0fz3t7+7outp4s8Zu2iCPoN9Qpo=
 github.com/sshelll/menuscreen v1.2.3 h1:iuc0qelo1O8e++pdZhxq5GitmlaNOAG8W3//M6+H2Ps=
 github.com/sshelll/menuscreen v1.2.3/go.mod h1:13HpKVghDlpEwnOEhPW1n9yCd0hzrzYpOOKcHd1yRVs=
+github.com/sshelll/menuscreen v1.2.4 h1:lVk8pcYzGkDk4OjV/nZLixKxmK0m7bdkzBb0R/adVOU=
+github.com/sshelll/menuscreen v1.2.4/go.mod h1:13HpKVghDlpEwnOEhPW1n9yCd0hzrzYpOOKcHd1yRVs=
 github.com/sshelll/sinfra v0.0.0-20230906160500-ea73c33d29d0 h1:2Tk71V06nk+u2zWwkvG0levFcZpyQiWJKcDf+ba1ggk=
 github.com/sshelll/sinfra v0.0.0-20230906160500-ea73c33d29d0/go.mod h1:Hvjt9zENW0lzoXKMv00yNIQdUMHXiSx+r+M9jggJx+w=
+github.com/sshelll/sinfra v0.0.0-20230907071256-fcdeaae6f055 h1:y533gAKmaTEcrld0qCU3Yr+a+H7fycdkt5g2m+0jCbI=
+github.com/sshelll/sinfra v0.0.0-20230907071256-fcdeaae6f055/go.mod h1:nzLNOFfYzOt+rfB60+exS9C9u8+ERRtFxn4KAVjJkEk=
 github.com/stretchr/testify v1.8.1 h1:w7B6lhMri9wdJUVmEZPGGhZzrYTPvgJArz7wNPgYKsk=
 github.com/stretchr/testify v1.8.1/go.mod h1:w2LPCIKwWwSfY2zedu0+kehJoqGctiVI29o6fzry7u4=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
