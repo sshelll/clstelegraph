@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"sort"
@@ -13,8 +14,10 @@ import (
 )
 
 type Core struct {
-	limit    int
-	interval time.Duration
+	limit         int
+	interval      time.Duration
+	displayCtx    context.Context
+	cancelDisplay context.CancelFunc
 }
 
 func NewCore(limit, interval int) *Core {
@@ -164,6 +167,8 @@ func (core *Core) selectTelegraph(telegraphList []*api.Telegraph) (*api.Telegrap
 func (core *Core) displayTelegraph(telegraph *api.Telegraph) error {
 	txtViewer := core.buildTxtViewer(telegraph)
 	go func() {
+		defer core.cancelDisplay()
+
 		// show title if any
 		if telegraph.Title != "" {
 			fmt.Fprintf(txtViewer, "[red]Title:[white]\n%s\n", telegraph.Title)
@@ -198,7 +203,12 @@ func (core *Core) displayTelegraph(telegraph *api.Telegraph) error {
 		fmt.Fprintf(txtViewer, "[red]Content:[white]\n")
 		for _, c := range telegraph.Content {
 			fmt.Fprintf(txtViewer, "%s", string(c))
-			time.Sleep(core.interval)
+			// quick print after user pressing 'enter' to manual skip animation
+			select {
+			case <-core.displayCtx.Done():
+			default:
+				time.Sleep(core.interval)
+			}
 		}
 	}()
 	return txtViewer.Run()
@@ -213,6 +223,8 @@ func (core *Core) buildMenu() *menuscreen.MenuScreen {
 }
 
 func (core *Core) buildTxtViewer(telegraph *api.Telegraph) *txtview.Viewer {
+	core.initDisplayCtx()
+
 	opts := txtview.NewDefaultOpts()
 
 	title := telegraph.Title
@@ -237,8 +249,20 @@ func (core *Core) buildTxtViewer(telegraph *api.Telegraph) *txtview.Viewer {
 
 	opts.DoneFunc = func(k tcell.Key, v *txtview.Viewer) {
 		if k == tcell.KeyEnter {
-			v.Stop()
+			select {
+			case <-core.displayCtx.Done():
+				v.Stop()
+			default:
+				core.cancelDisplay()
+			}
 		}
 	}
+
 	return txtview.NewViewer(opts)
+}
+
+func (core *Core) initDisplayCtx() {
+	ctx := context.Background()
+	cctx, cancel := context.WithCancel(ctx)
+	core.displayCtx, core.cancelDisplay = cctx, cancel
 }
